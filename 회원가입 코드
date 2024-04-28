@@ -1,0 +1,94 @@
+# input.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<h1>회원가입 input.jsp</h1>
+
+
+<form action="inputPro.jsp" method="post">
+	id: <input tye="text" name="id" id="id" minlength="6"/> <br/>
+			<input type="button" value="ID 중복 확인" onclick="idCheck();" /><br />
+	<script>
+		function idCheck(){
+		id = document.getElementById("id").value;
+		alert(id);
+		}
+	</script>
+	
+	pw: <input type="text" name="pw" minlength="8" /><br />
+	pwCheck: <input type="text" name="pwCheck" value="비밀번호 확인" minlength="8"/><br />
+	
+	name: <input type="text" name="name" /><br />
+
+	birth: <input type="date" name="birth" value="생년월일 8자리" /><br />
+	
+	gender: 남자<input type="radio" name="gender" /><br/>
+			여자<input type="radio" name="gender" /><br/>
+	
+	nationality: 내국인<input type="radio" name="nationality" /><br/>
+				 외국인<input type="radio" name="nationality" /><br/>
+	
+	number: <input type="number" name="number" placeholder="-를 빼고 입력해주세요." /><br/>
+	telecome: <select name="telecome">
+				<option value="KT">KT</option>
+				<option value="LG">LG</option>
+				<option value="SKT">SKT</option>
+				<option value="알뜰폰">알뜰폰</option>
+			</select> 
+	SMS 수신여부:<br>
+			<input type="radio" name="phoneReceive" value="수신동의" checked />수신동의<br/>
+			<input type="radio" name="phoneReceive" value="수신거부" />수신거부<br/>
+			
+	post: <input type="number" name="post" placeholder="우편번호" /><br/>
+			<input type="button" name="post" placeholder="찾기" /><br/>
+	address: <input type="text" name="address" placeholder="주소" /><br/>
+	detailedAddress: <input type="text" name="detailedAddress" placeholder="상세주소를 입력하세요." /><br/>
+	
+	email: <input type="eamil" name="email" placeholoder="E-Mail 주소" /><br/>
+	email 수신여부: <input type="radio" name="emailReceive" value="수신동의" checked />수신동의<br/>
+				 <input type="radio" name="emailReceive" value="수신거부" />수신거부<br />
+	
+		<input type="button" value="확인" onclick="inputCheck()" />
+		<input type="submit" value="회원가입" />
+
+</form>
+
+-----------------------
+
+# inputPro.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %> <!-- 파일 업로드 처리 클래스-->
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %> <!-- 파일 업로드시 이름 충돌 방지 클래스 -->
+<%@ page import="java.io.File" %>
+
+
+<script src="/hyejin2/resources/js/user.js"></script>
+<link rel="stylesheet" href="/hyejin2/resources/css/user.css" type="text/css"></link>
+    
+<h1>inputPro.jsp</h1>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+	String path = request.getRealPath("resources/image");
+%>    
+
+<jsp:useBean id="dto" class=web.bean.dto.UserDTO" /> <!-- jsp페이지 내에서 java 빈 객체 사용 UserDTO 클래스의 인스턴스 생성 -->
+<jsp:setProperty property="*" name="dto" /> <!-- bean객체의 속성값 설정 : name 속성 --> <!-- 사용자로부터 입력을 받아서 해당 입력을 처리하기 위해 사용 -->
+
+<h1><jsp:getProperty property="id" name="dto"/></h1>
+<h1><jsp:getProperty property="pw" name="dto"/></h1>
+<h1><jsp:getProperty property="pwCheck" name="dto"/></h1>
+<h1><jsp:getProperty property="name" name="dto"/></h1>
+<h1><jsp:getProperty property="birth" name="dto"/></h1>
+<h1><jsp:getProperty property="gender" name="dto"/></h1>
+<h1><jsp:getProperty property="nationality" name="dto"/></h1>
+<h1><jsp:getProperty property="number" name="dto"/></h1>
+<h1><jsp:getProperty property="phoneReceive" name="dto"/></h1>
+<h1><jsp:getProperty property="post" name="dto"/></h1>
+<h1><jsp:getProperty property="address" name="dto"/></h1>
+<h1><jsp:getProperty property="detailedAddress" name="dto"/></h1>
+<h1><jsp:getProperty property="email" name="dto"/></h1>
+<h1><jsp:getProperty property="emailReceive" name="dto"/></h1>
+ 
